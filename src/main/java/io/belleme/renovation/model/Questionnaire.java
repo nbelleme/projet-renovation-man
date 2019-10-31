@@ -2,6 +2,7 @@ package io.belleme.renovation.model;
 
 import io.belleme.renovation.model.converter.EmailConverter;
 import io.belleme.renovation.model.exception.IncorrectNumberOfResponseException;
+import io.belleme.renovation.model.exception.NullEmailException;
 import io.belleme.renovation.model.exception.QuestionAlreadyInQuestionnaireException;
 
 import javax.persistence.*;
@@ -47,7 +48,14 @@ public class Questionnaire {
     }
 
     public void validate() {
-        if (reponses.size() != QUESTIONNAIRE_SIZE) {
+
+        if (email == null) {
+            throw new NullEmailException();
+        }
+
+        email.validate();
+
+        if (reponses == null || reponses.size() != QUESTIONNAIRE_SIZE) {
             throw new IncorrectNumberOfResponseException();
         }
 
@@ -62,6 +70,7 @@ public class Questionnaire {
     public static final class Builder {
         private Long id;
         private Email email;
+        private List<Reponse> reponses;
 
         private Builder() {
         }
@@ -73,6 +82,11 @@ public class Questionnaire {
 
         public Builder email(Email email) {
             this.email = email;
+            return this;
+        }
+
+        public Builder reponses(List<Reponse> reponses) {
+            this.reponses = reponses;
             return this;
         }
 
