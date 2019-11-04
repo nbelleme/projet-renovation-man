@@ -26,25 +26,6 @@ paths:
                 items:
                   type: object
                   $ref: "#/components/schemas/Question"
-  #        links:
-  #          GetResponseById:
-  #            operationId: getResponse
-
-  #  /reponse/{reponseId}:
-  #    get:
-  #      tags:
-  #        - Reponse
-  #      operationId: getReponse
-  #      summary: Return Reponse
-  #      responses:
-  #        '200':
-  #          description: Reponse required as JSON
-  #          content:
-  #            application/json:
-  #              schema:
-  #                type: object
-  #                $ref: "#/components/schemas/Reponse"
-
 
   /questionnaire:
     get:
