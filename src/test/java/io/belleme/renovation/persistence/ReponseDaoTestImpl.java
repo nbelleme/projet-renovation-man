@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.*;
 
-public class ReponseDaoTest implements ReponseDao {
+public class ReponseDaoTestImpl implements ReponseDao {
 
     public Map<Long, Reponse> db = new HashMap<>();
 

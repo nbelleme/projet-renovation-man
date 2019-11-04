@@ -4,11 +4,10 @@ import io.belleme.renovation.model.Email;
 import io.belleme.renovation.model.Question;
 import io.belleme.renovation.model.Questionnaire;
 import io.belleme.renovation.model.Reponse;
-import io.belleme.renovation.persistence.QuestionnaireDaoTest;
-import io.belleme.renovation.persistence.ReponseDaoTest;
+import io.belleme.renovation.persistence.QuestionnaireDaoTestImpl;
+import io.belleme.renovation.persistence.ReponseDaoTestImpl;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class QuestionnaireServiceTest {
 
-    private ReponseDaoTest reponseDao;
+    private ReponseDaoTestImpl reponseDao;
     private QuestionnaireService questionnaireService;
-    private QuestionnaireDaoTest questionnaireDao;
+    private QuestionnaireDaoTestImpl questionnaireDao;
 
     QuestionnaireServiceTest() {
-        questionnaireDao = new QuestionnaireDaoTest();
-        reponseDao = new ReponseDaoTest();
+        questionnaireDao = new QuestionnaireDaoTestImpl();
+        reponseDao = new ReponseDaoTestImpl();
         questionnaireService = new QuestionnaireService(questionnaireDao, reponseDao);
     }
 

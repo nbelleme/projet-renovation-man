@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.*;
 
-public class QuestionnaireDaoTest implements QuestionnaireDao {
+public class QuestionnaireDaoTestImpl implements QuestionnaireDao {
 
     public Map<String, Questionnaire> db = new HashMap<>();
 
