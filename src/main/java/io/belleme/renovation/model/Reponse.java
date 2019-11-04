@@ -40,6 +40,7 @@ public class Reponse {
     public static final class Builder {
         private Long id;
         private Intitule intitule;
+        private Question question;
 
         private Builder() {
         }
@@ -54,10 +55,16 @@ public class Reponse {
             return this;
         }
 
+        public Builder question(Question question){
+            this.question = question;
+            return this;
+        }
+
         public Reponse build() {
             Reponse reponse = new Reponse();
             reponse.intitule = this.intitule;
             reponse.id = this.id;
+            reponse.question = this.question;
             return reponse;
         }
     }

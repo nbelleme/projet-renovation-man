@@ -3,6 +3,12 @@ info:
   title: Renovation Man API
   description: Renovation Man form API
   version: 0.0.0
+tags:
+  - name: Question
+    description: Everything about questions
+  - name: Questionnaire
+    description: Everything about forms
+
 paths:
   /question:
     get:
@@ -20,28 +26,68 @@ paths:
                 items:
                   type: object
                   $ref: "#/components/schemas/Question"
-#  /question/{questionId}/reponse:
-#    get:
-#      tags:
-#        - Question
-#      operationId: getQuestionResponses
-#      summary: Returns all the Responses for a Question
-#      parameters:
-#        - in: path
-#          name: questionId
-#          schema:
-#            type: number
-#          required: true
-#      responses:
-#        '200':
-#          description: Return JSON Array of Responses
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  type:
-#                  $ref: "#/components/schemas/Reponse"
+  #        links:
+  #          GetResponseById:
+  #            operationId: getResponse
+
+  #  /reponse/{reponseId}:
+  #    get:
+  #      tags:
+  #        - Reponse
+  #      operationId: getReponse
+  #      summary: Return Reponse
+  #      responses:
+  #        '200':
+  #          description: Reponse required as JSON
+  #          content:
+  #            application/json:
+  #              schema:
+  #                type: object
+  #                $ref: "#/components/schemas/Reponse"
+
+
+  /questionnaire:
+    get:
+      tags:
+        - Questionnaire
+      operationId: getQuestionnaireByEmail
+      summary: get form by email
+      parameters:
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: email to search
+      responses:
+        '200':
+          description: list of questionnaires matching query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: "#/components/schemas/Questionnaire"
+    post:
+      tags:
+        - Questionnaire
+      operationId: postQuestionnaire
+      summary: submit question form
+      requestBody:
+        description: form to register
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Questionnaire"
+      responses:
+        '200':
+          description: Return JSON submitted form
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Questionnaire"
 components:
   schemas:
     Question:
@@ -53,9 +99,9 @@ components:
         intitule:
           type: string
         reponses:
-            type: array
-            items:
-              $ref: "#/components/schemas/Reponse"
+          type: array
+          items:
+            $ref: "#/components/schemas/Reponse"
     Reponse:
       type: object
       properties:
@@ -64,3 +110,14 @@ components:
           format: int64
         intitule:
           type: string
+    Questionnaire:
+      type: object
+      properties:
+        email:
+          type: string
+        reponses:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reponse"
+          minItems: 3
+          maxItems: 3

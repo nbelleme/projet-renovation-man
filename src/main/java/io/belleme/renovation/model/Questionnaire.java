@@ -67,6 +67,26 @@ public class Questionnaire {
         });
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Questionnaire that = (Questionnaire) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        return reponses != null ? reponses.equals(that.reponses) : that.reponses == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (reponses != null ? reponses.hashCode() : 0);
+        return result;
+    }
+
     public static final class Builder {
         private Long id;
         private Email email;
@@ -94,6 +114,7 @@ public class Questionnaire {
             Questionnaire questionnaire = new Questionnaire();
             questionnaire.email = this.email;
             questionnaire.id = this.id;
+            questionnaire.reponses = this.reponses;
             return questionnaire;
         }
     }

@@ -16,7 +16,7 @@ create table reponse
 create table questionnaire
 (
     id_questionnaire bigint auto_increment primary key,
-    email            varchar(255) null
+    email            varchar(255) null unique
 );
 
 create table resultat
