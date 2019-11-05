@@ -4,6 +4,7 @@ import io.belleme.renovation.model.Email;
 import io.belleme.renovation.model.Question;
 import io.belleme.renovation.model.Questionnaire;
 import io.belleme.renovation.model.Reponse;
+import io.belleme.renovation.model.exception.EmailAlreadyAnsweredException;
 import io.belleme.renovation.persistence.QuestionnaireDaoTestImpl;
 import io.belleme.renovation.persistence.ReponseDaoTestImpl;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class QuestionnaireServiceTest {
 
@@ -31,7 +33,6 @@ class QuestionnaireServiceTest {
     void save() {
         cleanDb();
         String email = "ok@gmail.com";
-
 
         List<Reponse> reponses = new ArrayList<>();
 
@@ -65,6 +66,20 @@ class QuestionnaireServiceTest {
     }
 
     @Test
+    void saveMailAlreadyInside(){
+        cleanDb();
+
+        String email = "ok@gmail.com";
+        Questionnaire questionnaire = Questionnaire.builder()
+                                                   .email(new Email(email))
+                                                   .build();
+        questionnaireDao.db.put(email, questionnaire);
+
+        assertThrows(EmailAlreadyAnsweredException.class, () -> questionnaireService.save(questionnaire));
+
+    }
+
+    @Test
     void getByEmail() {
         cleanDb();
         String email = "ok@gmail.com";
@@ -90,7 +105,7 @@ class QuestionnaireServiceTest {
     }
 
     @Test
-    void getAllEmptyD(){
+    void getAllEmpty(){
         cleanDb();
         assertEquals(Collections.emptyList(), questionnaireService.getAll());
     }
